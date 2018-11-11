@@ -1,5 +1,6 @@
 'use strict';
 // https://git.heroku.com/hidden-island-35169.git
+////"heroku-postbuild": "cd client && npm install && npm run build"
 console.log(__dirname);
 const assert = require('assert');
 var express = require('express');
