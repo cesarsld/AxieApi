@@ -1,5 +1,5 @@
 'use strict';
-
+// https://git.heroku.com/hidden-island-35169.git
 console.log(__dirname);
 const assert = require('assert');
 var express = require('express');
@@ -85,7 +85,7 @@ app.get('/api/dailyDau', function (req, res) {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join('/client/build/index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 //app.use('/assets' ,express.static('public'));
