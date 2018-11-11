@@ -79,7 +79,7 @@ app.get('/api/dailyDau', function (req, res) {
     var collec = db.collection('DailyBattleDAU');
     collec.find({}).toArray(function (err, result) {
         if (err) throw err;
-        res.json(result);
+        res.json(["123", "123","123","123","123"]);
 
     });
 });

@@ -1,16 +1,13 @@
 import hi, { Line } from 'react-chartjs-2';
-import socket from '../socket/socket.js';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
-socket.emit('BattleDAUQuery');
 
 
 let data = {
     labels: [],
     datasets: [
         {
-            label: 'Users per day',
+            label: 'Unique daily users',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
@@ -34,26 +31,37 @@ let data = {
     height: 200,
     width: 400,
 };
-socket.on('DailyBattleDAUData', function (dauData) {
-    console.log('data received');
-    dauData.forEach(element => {
-        var date = new Date(element._id * 1000);
-        data.labels.push(date.toDateString())
-        
-        data.datasets[0].data.push(element.Count);
-    });
-    ReactDOM.render(< Graph />, document.getElementById('root'));
-});
 const options = {
-    fullWidth : false,
+    fullWidth: false,
     maintainAspectRatio: false
 };
 
+
 class Graph extends Component {
+    state = { _data: {} }
+
+    componentDidMount() {
+        this.getData();
+    }
+
+    getData = () => {
+        fetch('/api/dailyDau')
+            .then(res => res.json())
+            .then(dauData => {
+                dauData.forEach(element => {
+                    var date = new Date(element._id * 1000);
+                    data.labels.push(date.toDateString())
+
+                    data.datasets[0].data.push(element.Count);
+                });
+                this.setState({ data });
+            });
+    }
+
     render() {
         return (
             <div>
-                <Line className = "lineGraph"
+                <Line className="lineGraph"
                     data={data}
                     width={900}
                     height={400}
@@ -62,10 +70,10 @@ class Graph extends Component {
                         maintainAspectRatio: false,
                         responsive: false
                     }}// = ?
-                            />
+                />
             </div>
         )
     }
 }
 
-export { Graph };
+export default Graph;
