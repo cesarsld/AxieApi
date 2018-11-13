@@ -32,6 +32,17 @@ app.get('/api/dailyDau', function (req, res) {
     });
 });
 
+app.get('/api/dailyPods', function (req, res) {
+    console.log('Pod query!');
+    const db = mongoClient.db('AxieData');
+    var collec = db.collection('EggSoldPerDay');
+    collec.find({}).toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+
+    });
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
