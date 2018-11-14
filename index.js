@@ -10,19 +10,20 @@ var mongo = require('mongodb').MongoClient;
 var mongoClient = new mongo('mongodb://liam:90%400fB32@72.49.192.97:27017');
 
 
-var client
 
 var port = process.env.PORT || 1337;
 
 
 
+
 mongoClient.connect(function (err) {
     assert.equal(null, err);
-    console.log("Connected successfully to server");
+    console.log("connected successfully to server");
 });
 
 app.get('/api/dailyDau', function (req, res) {
     console.log('dau query!');
+
     const db = mongoClient.db('AxieData');
     var collec = db.collection('DailyBattleDAU');
     collec.find({}).toArray(function (err, result) {
@@ -36,6 +37,17 @@ app.get('/api/dailyPods', function (req, res) {
     console.log('Pod query!');
     const db = mongoClient.db('AxieData');
     var collec = db.collection('EggSoldPerDay');
+    collec.find({}).toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+
+    });
+});
+
+app.get('/api/dailyBreeds', function (req, res) {
+    console.log('Pod query!');
+    const db = mongoClient.db('AxieData');
+    var collec = db.collection('EggsPerDay');
     collec.find({}).toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
