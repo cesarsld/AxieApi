@@ -58,7 +58,7 @@ app.get('/api/dailyBreeds', function (req, res) {
 app.get('/api/cumulUniqueBuyers', function (req, res) {
     console.log('Pod query!');
     const db = mongoClient.db('AxieData');
-    var collec = db.collection('UniquerBuyerGains');
+    var collec = db.collection('UniqueBuyerGains');
     collec.find({}).toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
