@@ -7,7 +7,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var mongo = require('mongodb').MongoClient;
-var mongoClient = new mongo(env.process.MONGO_URL);
+var mongoClient = new mongo(process.env.MONGO_URL);
 
 
 
