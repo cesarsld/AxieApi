@@ -7,7 +7,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var mongo = require('mongodb').MongoClient;
-var mongoClient = new mongo('mongodb://liam:90%400fB32@72.49.192.97:27017');
+var mongoClient = new mongo(env.process.MONGO_URL);
 
 
 
