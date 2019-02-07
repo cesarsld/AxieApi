@@ -81,7 +81,7 @@ app.get('/api/dailyBreedsCumul', function (req, res) {
     console.log('dau query!');
 
     const db = mongoClient.db('AxieData');
-    var collec = db.collection('EggsPerDayCumul');
+    var collec = db.collection('EggsPerDay');
     collec.find({}).toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
