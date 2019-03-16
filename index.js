@@ -20,6 +20,12 @@ mongoClient.connect(function (err) {
     assert.equal(null, err);
     console.log("connected successfully to server");
 });
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.get('/api/saleData', function (req, res) {
     var unix = Math.floor(new Date() / 1000);
     var queryLength = 0;
