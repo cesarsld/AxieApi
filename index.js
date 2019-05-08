@@ -163,6 +163,18 @@ app.get('/api/dailyBreedsCumul', function (req, res) {
     });
 });
 
+app.get('/api/dailyStreamers', function (req, res) {
+    console.log('dau query!');
+
+    const db = mongoClient.db('AxieData');
+    var collec = db.collection('Streamers');
+    collec.find({}).toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+
+    });
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
