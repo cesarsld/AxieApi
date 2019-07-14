@@ -26,6 +26,33 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+app.get('/api/winrates', function (req, res) {
+    var offset = 0;
+    if (req.query.offset)
+        offset = parseInt(req.query.offset);
+    const db = mongoClient.db('AxieData');
+    var collec = db.collection('AxieWinrate');
+    var data = collec.find({}).limit(50).skip(offset).toArray(function (err, result) {
+        if (err) throw err;
+        if (result.length >= 0)
+            res.json(result);
+    });
+});
+
+app.get('/api/winrate', function (req, res) {
+    var id = 0;
+    if (req.query.id)
+        id = parseInt(req.query.id);
+    const db = mongoClient.db('AxieData');
+    var collec = db.collection('AxieWinrate');
+    collec.find({ _id: id }).toArray(function (err, result) {
+        if (err) throw err;
+        if (result.length === 1)
+            res.json(result);
+    });
+});
+
 app.get('/api/saleData', function (req, res) {
     var unix = Math.floor(new Date() / 1000);
     var queryLength = 0;
